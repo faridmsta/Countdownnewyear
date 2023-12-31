@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pixelify+Sans:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: #9c0003;
+        }
+
+        main {
+            height: 100vh;
+            width: 100%;
+
+            font-family: 'Pixelify Sans', sans-serif;
+        }
+
+        .container {
+            width: 90%;
+            margin: auto;
+        }
+
+        .content {
+            display: flex;
+            flex-wrap: wrap;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 120px;
+            color: #f3f3f3;
+        }
+
+        .time {
+            width: 100%;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+
+            & .timeWrapper {
+                font-weight: 600;
+                width: 400px;
+                height: 400px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-shrink: 0;
+                padding: 30px;
+                font-size: 32px;
+                background-color: #f3f3f3;
+                border-radius: 50%;
+
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <main>
+        <div class="container">
+            <div class="allWrapper">
+                <h1></h1>
+                <div class="content">
+                    <div class="time">
+                        <div class="timeWrapper">
+                            0 month
+                        </div>
+                        <div class="timeWrapper">
+                            0 day
+                        </div>
+                        <div class="timeWrapper">
+                            0 hour
+                        </div>
+                        <div class="timeWrapper">
+                            0 minutes
+                        </div>
+                        <div class="timeWrapper">
+                            0 seconds
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </main>
+    <script src="https://unpkg.com/magic-snowflakes/dist/snowflakes.min.js"></script>
+    <script>
+
+        new Snowflakes();
+        function updateCountdown() {
+            const date = new Date();
+            const timeWrappers = document.querySelectorAll(".timeWrapper");
+            const h1 = document.querySelector("h1");
+            let this_year = date.getFullYear();
+            let targetDate = new Date(this_year + 1, 0, 1, 0, 0, 0); // New Year's Day of next year
+            let timeDifference = targetDate - date;
+
+            let monthLeft = Math.floor(timeDifference / (1000 * 60 * 60 * 24 * 30));
+            let dayLeft = Math.floor((timeDifference % (1000 * 60 * 60 * 24 * 30)) / (1000 * 60 * 60 * 24));
+            let hourLeft = Math.floor((timeDifference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            let minuteLeft = Math.floor((timeDifference % (1000 * 60 * 60)) / (1000 * 60));
+            let secLeft = Math.floor((timeDifference % (1000 * 60)) / 1000);
+
+            h1.innerHTML = `${this_year + 1}`;
+
+            timeWrappers[0].innerHTML = `${monthLeft} months`;
+            timeWrappers[1].innerHTML = `${dayLeft} days`;
+            timeWrappers[2].innerHTML = `${hourLeft} hours`;
+            timeWrappers[3].innerHTML = `${minuteLeft} minutes`;
+            timeWrappers[4].innerHTML = `${secLeft} seconds`;
+        }
+
+
+        updateCountdown();
+
+
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+
+</html>
